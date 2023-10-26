@@ -20,9 +20,7 @@ export default function DataSelection(dataSelectionProps: CaseDataGridProps) {
         let reader = new FileReader();
         reader.readAsText(file!);
         reader.onload = function() {
-            console.log(reader.result);
-            const { convertCSVToArray } = require('convert-csv-to-array');
-            const dataResult = convertCSVToArray(reader.result, {header: false, type: 'object'});
+            const dataResult = JSON.parse(reader.result as string);
             const formattedResult = formatData(dataResult);
             console.log("Formatted Data Result*****");
             console.log(formattedResult);

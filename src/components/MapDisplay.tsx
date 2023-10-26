@@ -3,12 +3,16 @@ import {useRef} from 'react';
 import {Map, Marker} from 'react-map-gl';
 import type {MapRef} from 'react-map-gl';
 import { Box, Chip, Typography } from '@mui/material';
+import stateCoords from '../data/state-coordinates.json';
 
 function addMarker(stateData: any) {
+    const stateLatLong = stateCoords.find(stateObj => {return stateObj.state === stateData.name})
+    const lat = stateLatLong ? stateLatLong.latitude : 0;
+    const long = stateLatLong ? stateLatLong.longitude : 0;
     return (
         <Marker
-            latitude={stateData.lat}
-            longitude={stateData.long}
+            latitude={lat}
+            longitude={long}
         >
             <Chip label={stateData.cases} color="error" />
         </Marker>

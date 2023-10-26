@@ -21,7 +21,7 @@ interface CaseDataProps {
 }
 
 function Bar(item: any) {
-    const {state, casesPer100k, setSelectedItem} = item;
+    const {name: state, casesPer100k, setSelectedItem} = item;
     const progressValue = (casesPer100k / 1000);
     return (
         <Grid key={"bar-item-" + item.id} container>
@@ -42,6 +42,19 @@ function Bar(item: any) {
 function BarChart(props: CaseDataProps) {
     const [selectedItem, setSelectedItem] = React.useState<any>();
 
+    const caseDateElement = (casesObj: any) => {
+        const caseDataElArray = []
+        for (const dateKey in casesObj) {
+            caseDataElArray.push(<ListItem disableGutters key={"cases"}>
+                <Typography>
+                    {dateKey}: {casesObj[dateKey]?.cases}
+                </Typography>
+            </ListItem>);
+        }
+        return caseDataElArray;
+    }
+        
+
     return (
         <div>
             <Stack>
@@ -49,14 +62,30 @@ function BarChart(props: CaseDataProps) {
             </Stack>
 
             <Dialog onClose={() => {setSelectedItem(undefined)}} open={!!selectedItem}>
-                <DialogTitle textAlign={"center"}>{selectedItem?.state}</DialogTitle>
-                <Box padding={2}>
+                <DialogTitle textAlign={"center"} sx={{fontWeight: "bold"}}>{selectedItem?.name}</DialogTitle>
+                <Box padding={2} width={400 }>
                     <List sx={{ pt: 0 }}>
                         <ListItem disableGutters key={"population"}>
                             <Typography>
                                 Population: {selectedItem?.population}
                             </Typography>
                         </ListItem>
+                        <ListItem disableGutters key={"cases"}>
+                            <Typography>
+                                Total Cases: {selectedItem?.cases}
+                            </Typography>
+                        </ListItem>
+                        <ListItem disableGutters key={"deaths"}>
+                            <Typography>
+                                Total Deaths: {selectedItem?.deaths}
+                            </Typography>
+                        </ListItem>
+                        <ListItem disableGutters key={"deaths"}>
+                            <Typography variant="h6" sx={{textDecoration: "underline"}}>
+                                Cases by Date
+                            </Typography>
+                        </ListItem>
+                        {caseDateElement(selectedItem?.casesByDate)}
                     </List>
                 </Box>
             </Dialog>
@@ -72,7 +101,7 @@ export default function CaseVisualization(props: CaseDataProps) {
             <Typography variant="h4" mb={1}>
                 Covid Case Data
             </Typography>
-            <Typography variant="h6" mb={1}>
+            <Typography variant="h6" mb={1} textAlign={"center"}>
                 Positive Cases per 100k
             </Typography>
             

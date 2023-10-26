@@ -4,7 +4,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 const columns: GridColDef[] = [
   {
-    field: 'state',
+    field: 'name',
     headerName: 'State',
     width: 110,
   },
