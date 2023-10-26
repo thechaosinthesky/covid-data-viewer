@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import TabPanel from './TabPanel';
 import DataSelection, { DATA_STORAGE_KEY } from './DataSelection';
 import CaseVisualization from './CaseVisualization';
+import MapDisplay from './MapDisplay';
 
 enum TabsEnum {
     Visualization = 0,
@@ -64,10 +65,10 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={10}>
                 <TabPanel value={tabValue} index={0}>
-                <CaseVisualization caseData={caseData}  />
+                    <CaseVisualization caseData={caseData}  />
                 </TabPanel>
                 <TabPanel value={tabValue} index={1}>
-                    Coming Soon!
+                    <MapDisplay caseData={caseData} />
                 </TabPanel>
                 <TabPanel value={tabValue} index={2}>
                     <DataSelection caseData={caseData} setCaseData={setCaseData}  />
