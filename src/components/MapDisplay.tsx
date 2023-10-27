@@ -14,7 +14,7 @@ function addMarker(stateData: any) {
             latitude={lat}
             longitude={long}
         >
-            <Chip label={stateData.cases} color="error" />
+            <Chip label={stateData.cases} sx={{backgroundColor: "#ff00ff", color: "#fff"}} />
         </Marker>
     )
 }
